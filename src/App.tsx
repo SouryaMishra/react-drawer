@@ -35,9 +35,7 @@ function App() {
 
   return (
     <div className="app">
-      <button className="btn__drawer--show" onClick={() => setOpen(true)}>
-        Show My Drawer
-      </button>
+      <button onClick={() => setOpen(true)}>Show My Drawer</button>
 
       <form className="form">
         <div>
