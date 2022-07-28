@@ -1,14 +1,8 @@
-import {
-  useState,
-  useEffect,
-  Dispatch,
-  SetStateAction,
-  ChangeEvent
-} from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import { createPortal } from "react-dom";
 import Drawer from "./components/Drawer";
 import { PositionType } from "./shared/model";
-import { useKeyUp } from "./shared/useKeyup";
+
 import "./App.css";
 
 function App() {
