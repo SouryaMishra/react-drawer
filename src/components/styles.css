@@ -2,13 +2,21 @@
   z-index: 999;
   position: fixed;
   inset: 0;
+  pointer-events: none;
+}
+
+.drawer__container.open {
+  pointer-events: initial;
 }
 
 .drawer__overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3);
   z-index: 1;
+}
+
+.drawer__container.open .drawer__overlay {
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .drawer__content {
@@ -17,6 +25,7 @@
   padding: 3vmin;
   background: #fff;
   transition: transform 300ms ease-in;
+  box-shadow: 5px 0px 15px rgba(0, 0, 0, 0.2);
 }
 
 .left,

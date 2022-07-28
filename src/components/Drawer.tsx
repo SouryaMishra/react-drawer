@@ -29,7 +29,13 @@ const Drawer = ({
   return (
     <>
       {(isOpen || isTransitionEnd) && (
-        <div className={classNames("drawer__container", className)}>
+        <div
+          className={classNames(
+            "drawer__container",
+            className,
+            isOpen ? "open" : ""
+          )}
+        >
           <div
             className={classNames(
               "drawer__content",
@@ -41,10 +47,7 @@ const Drawer = ({
             <button onClick={onClose}>Close</button>
             <div>{children}</div>
           </div>
-          <div
-            className={classNames("drawer__overlay", isOpen ? "open" : "")}
-            onClick={onClose}
-          />
+          <div className={classNames("drawer__overlay")} onClick={onClose} />
         </div>
       )}
     </>
