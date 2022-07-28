@@ -11,6 +11,7 @@ export type DrawerProps = {
   children: ReactNode;
   onClose: () => void;
   position?: PositionType;
+  delay?: number;
 };
 
 const Drawer = ({
@@ -18,11 +19,12 @@ const Drawer = ({
   children,
   onClose,
   position = "left",
-  className = ""
+  className = "",
+  delay = 300
 }: DrawerProps) => {
   useKeyUp(onClose);
 
-  const isTransitionEnd = useTransition(isOpen, 300);
+  const isTransitionEnd = useTransition(isOpen, delay);
 
   return (
     <>
