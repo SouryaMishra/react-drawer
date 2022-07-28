@@ -1,8 +1,9 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import classNames from "../shared/classNames";
 import { PositionType } from "../shared/model";
 import { useKeyUp } from "../shared/useKeyup";
 import { useTransition } from "../shared/useTransition";
+import { getFocusableElements } from "../shared/util";
 import "./styles.css";
 
 export type DrawerProps = {
@@ -26,6 +27,12 @@ const Drawer = ({
 
   const isTransitionEnd = useTransition(isOpen, delay);
 
+  const drawerContentRef = useRef<HTMLDivElement | null>(null);
+  const checkBoxRef = useRef<HTMLInputElement | null>(null);
+
+  const firstFocusableElement = useRef<HTMLElement | null>(null);
+  const lastFocusableElement = useRef<HTMLElement | null>(null);
+
   useEffect(
     () =>
       document.documentElement.style.setProperty(
@@ -34,6 +41,36 @@ const Drawer = ({
       ),
     [delay]
   );
+
+  useEffect(() => {
+    if (!drawerContentRef.current || !isTransitionEnd) return;
+
+    const focusableElements = getFocusableElements(drawerContentRef.current);
+
+    firstFocusableElement.current = focusableElements[0];
+    lastFocusableElement.current =
+      focusableElements[focusableElements.length - 1];
+
+    checkBoxRef.current?.focus();
+
+    const keyDownListener = (e: any) => {
+      if (e.key === "Tab") {
+        if (e.shiftKey) {
+          if (document.activeElement === firstFocusableElement.current) {
+            e.preventDefault();
+            lastFocusableElement.current?.focus();
+          }
+          return;
+        }
+        if (document.activeElement === lastFocusableElement.current) {
+          e.preventDefault();
+          firstFocusableElement.current?.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", keyDownListener);
+    return () => document.removeEventListener("keydown", keyDownListener);
+  }, [isTransitionEnd]);
 
   return (
     <>
@@ -46,6 +83,7 @@ const Drawer = ({
           )}
         >
           <div
+            ref={drawerContentRef}
             className={classNames(
               "drawer__content",
               position,
@@ -53,6 +91,13 @@ const Drawer = ({
               isTransitionEnd ? "slide" : ""
             )}
           >
+            <input
+              aria-hidden="true"
+              className="hidden"
+              ref={checkBoxRef}
+              type="checkbox"
+              tabIndex={-1}
+            />
             <button onClick={onClose}>Close</button>
             <div>{children}</div>
           </div>

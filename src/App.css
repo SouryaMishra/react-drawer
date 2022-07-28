@@ -15,6 +15,10 @@
   margin-left: 0.5rem;
 }
 
+.form label {
+  margin-left: 0.25rem;
+}
+
 button {
   cursor: pointer;
   padding: 0.6rem 1rem;
@@ -27,4 +31,10 @@ button {
 
 button:active {
   transform: translateY(2px);
+}
+
+button:focus,
+button:hover {
+  outline: 2px solid rgb(51, 121, 196);
+  outline-offset: 4px;
 }

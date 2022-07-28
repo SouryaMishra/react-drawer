@@ -9,6 +9,7 @@ function App() {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [position, setPosition] = useState<PositionType>("left");
 
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
 
   useEffect(() => {
@@ -28,12 +29,15 @@ function App() {
   };
 
   const onClose = () => {
+    buttonRef.current?.focus();
     setOpen(false);
   };
 
   return (
     <div className="app">
-      <button onClick={onOpen}>Show My Drawer</button>
+      <button ref={buttonRef} onClick={onOpen}>
+        Show My Drawer
+      </button>
 
       <form className="form" ref={formRef}>
         <div>
@@ -62,7 +66,12 @@ function App() {
 
       {createPortal(
         <Drawer onClose={onClose} position={position} isOpen={isOpen}>
-          <h1>Hello World</h1>
+          <>
+            <h1>Hello World</h1>
+            <div>
+              <input type="text" />
+            </div>
+          </>
         </Drawer>,
         document.getElementById("drawer") as HTMLElement
       )}

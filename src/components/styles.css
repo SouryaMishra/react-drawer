@@ -82,3 +82,8 @@
 .drawer__content.open.slide {
   transform: translate(0, 0);
 }
+
+.hidden {
+  height: 0;
+  width: 0;
+}
