@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import Drawer from "./components/Drawer";
 import { PositionType } from "./shared/model";
@@ -9,7 +9,7 @@ function App() {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [position, setPosition] = useState<PositionType>("left");
 
-  const onClose = () => setOpen(false);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -19,58 +19,43 @@ function App() {
     document.body.classList.remove("overflow--hidden");
   }, [isOpen]);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPosition(e.target.value as PositionType);
+  const onOpen = () => {
+    const { value } = formRef.current?.elements.namedItem(
+      "position"
+    ) as RadioNodeList;
+    setPosition(value as PositionType);
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
   };
 
   return (
     <div className="app">
-      <button onClick={() => setOpen(true)}>Show My Drawer</button>
+      <button onClick={onOpen}>Show My Drawer</button>
 
-      <form className="form">
+      <form className="form" ref={formRef}>
         <div>
           <input
             id="left"
             type="radio"
             name="position"
             value="left"
-            checked={position === "left"}
-            onChange={onChange}
+            defaultChecked
           />
-
           <label htmlFor="left">Left</label>
         </div>
         <div>
-          <input
-            id="right"
-            type="radio"
-            name="position"
-            value="right"
-            checked={position === "right"}
-            onChange={onChange}
-          />
+          <input id="right" type="radio" name="position" value="right" />
           <label htmlFor="right">Right</label>
         </div>
         <div>
-          <input
-            id="top"
-            type="radio"
-            name="position"
-            value="top"
-            checked={position === "top"}
-            onChange={onChange}
-          />
+          <input id="top" type="radio" name="position" value="top" />
           <label htmlFor="top">Top</label>
         </div>
         <div>
-          <input
-            id="bottom"
-            type="radio"
-            name="position"
-            value="bottom"
-            checked={position === "bottom"}
-            onChange={onChange}
-          />
+          <input id="bottom" type="radio" name="position" value="bottom" />
           <label htmlFor="bottom">Bottom</label>
         </div>
       </form>
