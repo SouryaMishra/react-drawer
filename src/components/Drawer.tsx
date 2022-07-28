@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import classNames from "../shared/classNames";
 import { PositionType } from "../shared/model";
 import { useKeyUp } from "../shared/useKeyup";
@@ -25,6 +25,15 @@ const Drawer = ({
   useKeyUp(onClose);
 
   const isTransitionEnd = useTransition(isOpen, delay);
+
+  useEffect(
+    () =>
+      document.documentElement.style.setProperty(
+        "--transition-delay",
+        `${delay}ms`
+      ),
+    [delay]
+  );
 
   return (
     <>

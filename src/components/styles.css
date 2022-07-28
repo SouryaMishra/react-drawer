@@ -1,6 +1,7 @@
 :root {
   --box-shadow-color: rgba(0, 0, 0, 0.2);
   --box-shadow-blur: 15px;
+  --transition-delay: 300ms;
 }
 
 .drawer__container {
@@ -29,7 +30,7 @@
   z-index: 2;
   padding: 3vmin;
   background: #fff;
-  transition: transform 300ms ease-in;
+  transition: transform var(--transition-delay) ease-in;
 }
 
 .left,
