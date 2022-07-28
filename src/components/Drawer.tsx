@@ -1,7 +1,8 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import classNames from "../shared/classNames";
 import { PositionType } from "../shared/model";
 import { useKeyUp } from "../shared/useKeyup";
+import { useTransition } from "../shared/useTransition";
 import "./styles.css";
 
 export type DrawerProps = {
@@ -19,34 +20,29 @@ const Drawer = ({
   position = "left",
   className = ""
 }: DrawerProps) => {
-  const [isTransitionEnd, setIsTransitionEnd] = useState<boolean>(false);
+  useKeyUp(onClose);
 
-  useEffect(() => {
-    if (isOpen) setIsTransitionEnd(true);
-  }, [isOpen]);
-
-  const onCloseDrawer = () => {
-    setIsTransitionEnd(false);
-    setTimeout(onClose, 300);
-  };
-
-  useKeyUp(onCloseDrawer);
+  const isTransitionEnd = useTransition(isOpen, 300);
 
   return (
     <>
-      {isOpen && (
+      {(isOpen || isTransitionEnd) && (
         <div className={classNames("drawer__container", className)}>
           <div
             className={classNames(
               "drawer__content",
               position,
+              isOpen ? "open" : "",
               isTransitionEnd ? "slide" : ""
             )}
           >
-            <button onClick={onCloseDrawer}>Close</button>
+            <button onClick={onClose}>Close</button>
             <div>{children}</div>
           </div>
-          <div className="drawer__overlay" onClick={onCloseDrawer} />
+          <div
+            className={classNames("drawer__overlay", isOpen ? "open" : "")}
+            onClick={onClose}
+          />
         </div>
       )}
     </>
