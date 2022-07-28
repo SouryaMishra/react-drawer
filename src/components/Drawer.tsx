@@ -1,9 +1,8 @@
 import { ReactNode, useEffect, useRef } from "react";
-import classNames from "../shared/classNames";
+import { classNames } from "../shared/utils";
 import { PositionType } from "../shared/model";
-import { useFocusTrap } from "../shared/useFocusTrap";
-import { useKeyUp } from "../shared/useKeyup";
-import { useTransition } from "../shared/useTransition";
+import { useFocusTrap, useKeyUp, useTransition } from "../shared/hooks";
+
 import "./styles.css";
 
 export type DrawerProps = {
@@ -76,7 +75,7 @@ const Drawer = ({
             <button onClick={onClose}>Close</button>
             <div>{children}</div>
           </div>
-          <div className={classNames("drawer__overlay")} onClick={onClose} />
+          <div className="drawer__overlay" onClick={onClose} />
         </div>
       )}
     </>

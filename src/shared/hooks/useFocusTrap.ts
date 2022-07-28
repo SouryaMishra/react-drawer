@@ -1,5 +1,5 @@
 import { MutableRefObject, useEffect, useRef } from "react";
-import { getFocusableElements } from "./util";
+import { getFocusableElements } from "../utils";
 
 export type UseFocusTrapArgsType = {
   isOpen: boolean;

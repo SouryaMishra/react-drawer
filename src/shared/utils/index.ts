@@ -1,3 +1,7 @@
+export const classNames = (...args: string[]) => {
+  return args.filter((arg) => Boolean(arg.trim())).join(" ");
+};
+
 export const getFocusableElements = (container: HTMLElement) =>
   Array.from(
     container.querySelectorAll<HTMLElement>(
