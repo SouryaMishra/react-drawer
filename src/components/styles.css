@@ -1,3 +1,8 @@
+:root {
+  --box-shadow-color: rgba(0, 0, 0, 0.2);
+  --box-shadow-blur: 15px;
+}
+
 .drawer__container {
   z-index: 999;
   position: fixed;
@@ -25,7 +30,6 @@
   padding: 3vmin;
   background: #fff;
   transition: transform 300ms ease-in;
-  box-shadow: 5px 0px 15px rgba(0, 0, 0, 0.2);
 }
 
 .left,
@@ -41,12 +45,14 @@
   left: 0;
   right: auto;
   transform: translate(-100%, 0);
+  box-shadow: 5px 0px var(--box-shadow-blur) var(--box-shadow-color);
 }
 
 .right {
   right: 0;
   left: auto;
   transform: translate(100%, 0);
+  box-shadow: -5px 0px var(--box-shadow-blur) var(--box-shadow-color);
 }
 
 .top,
@@ -62,12 +68,14 @@
   top: 0;
   bottom: auto;
   transform: translate(0, -100%);
+  box-shadow: 0px 5px var(--box-shadow-blur) var(--box-shadow-color);
 }
 
 .bottom {
   bottom: 0;
   top: auto;
   transform: translate(0, 100%);
+  box-shadow: 0px -5px var(--box-shadow-blur) var(--box-shadow-color);
 }
 
 .drawer__content.open.slide {
