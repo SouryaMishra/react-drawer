@@ -12,14 +12,10 @@ import { useKeyUp } from "./shared/useKeyup";
 import "./App.css";
 
 function App() {
-  const [isOpen, setOpen]: [boolean, Dispatch<SetStateAction<boolean>>] =
-    useState<boolean>(false);
-
+  const [isOpen, setOpen] = useState<boolean>(false);
   const [position, setPosition] = useState<PositionType>("left");
 
   const onClose = () => setOpen(false);
-
-  useKeyUp(onClose);
 
   useEffect(() => {
     if (isOpen) {
