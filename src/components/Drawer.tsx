@@ -76,6 +76,7 @@ const Drawer = ({
     <>
       {(isOpen || isTransitionEnd) && (
         <div
+          aria-hidden={!isOpen}
           className={classNames(
             "drawer__container",
             className,
@@ -83,6 +84,7 @@ const Drawer = ({
           )}
         >
           <div
+            role="dialog"
             ref={drawerContentRef}
             className={classNames(
               "drawer__content",
