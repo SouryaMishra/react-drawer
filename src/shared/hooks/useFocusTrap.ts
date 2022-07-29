@@ -10,7 +10,7 @@ export type UseFocusTrapArgsType = {
 export const useFocusTrap = ({
   isOpen,
   containerToTrapFocusWithin,
-  elementToFocusWhenOpened
+  elementToFocusWhenOpened,
 }: UseFocusTrapArgsType) => {
   const firstFocusableElement = useRef<HTMLElement | null>(null);
   const lastFocusableElement = useRef<HTMLElement | null>(null);
@@ -45,5 +45,5 @@ export const useFocusTrap = ({
     };
     document.addEventListener("keydown", keyDownListener);
     return () => document.removeEventListener("keydown", keyDownListener);
-  }, [isOpen]);
+  }, [isOpen, containerToTrapFocusWithin, elementToFocusWhenOpened]);
 };
